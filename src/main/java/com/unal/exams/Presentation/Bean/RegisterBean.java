@@ -9,6 +9,7 @@ import com.unal.exams.BusinessLogic.Controller.User.UserController;
 import com.unal.exams.DataAccess.Entity.Users;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -73,10 +74,31 @@ public class RegisterBean {
     }
     
     public String register(){
-        int genderNumber = this.gender.equals("M")?1:0;
-        role = "user";
-        Users user = new UserController().register(username, name, email, 
+        Users userSession = (Users)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if(userSession!=null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userSession);
+            if(userSession.getRole().equals("admin")){
+                return "/admin/index";
+            }
+            return "/user/index";
+        }else{
+            int genderNumber = this.gender.equals("M")?1:0;
+            role = "user";
+            Users user = new UserController().register(username, name, email, 
                 password,genderNumber , role);
-        return "index";
+            return "index";
+        }
     }
+    public String verify(){
+        Users userSession = (Users)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if(userSession!=null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userSession);
+            if(userSession.getRole().equals("admin")){
+                return "/admin/index";
+            }
+            return "/user/index";
+        }
+        return "";
+    }
+        
 }

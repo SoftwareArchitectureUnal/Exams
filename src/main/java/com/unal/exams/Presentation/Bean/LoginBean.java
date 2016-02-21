@@ -65,7 +65,18 @@ public class LoginBean {
     }
     public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("user");
-        return "index";
+        return "/index";
+    }
+    public String verify(){
+        Users userSession = (Users)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+        if(userSession!=null){
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userSession);
+            if(userSession.getRole().equals("admin")){
+                return "/admin/index";
+            }
+            return "/user/index";
+        }
+        return "";
     }
     
 }

@@ -10,6 +10,10 @@
     </h:head>
     <h:body>
         <h:form>
+              <h:commandButton action="#{registerBean.verify()}" value="verifique si esta logeado"/>
+        </h:form>
+        <br/>
+        <h:form>
             Nombre de usuario
             <br/>
             <h:inputText  value="#{registerBean.username}" required="true" requiredMessage="¡El nombre de usario es requerido" />
@@ -44,7 +48,7 @@
             -->
           
                 
-            <h:commandButton action="#{registerBean.register()}" value="log in"/>
+            <h:commandButton action="#{registerBean.register()}" value="sign up"/>
 
         </h:form>
     </h:body>

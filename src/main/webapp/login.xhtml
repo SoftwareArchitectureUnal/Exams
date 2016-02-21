@@ -8,8 +8,13 @@
         <title>LoginUser</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <body>
+      <body>
         <h:form>
+              <h:commandButton action="#{loginBean.verify()}" value="verifique si esta logeado"/>
+        </h:form>
+        <br/>
+        <h:form>
+            
             Username
             <br/>
             <h:inputText value="#{loginBean.username}" required="true" requiredMessage="¡El nombre de usario es requerido" />

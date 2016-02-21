@@ -6,9 +6,14 @@
      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>TODO supply a title</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
     </h:head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+     <h:body>
+        <h:form>
+            <h:commandButton action="#{loginBean.logout()}" value="log out"/>
+
+        </h:form>
+    </h:body>
 </html>
