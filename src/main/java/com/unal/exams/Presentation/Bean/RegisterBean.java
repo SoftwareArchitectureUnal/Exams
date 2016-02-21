@@ -74,6 +74,7 @@ public class RegisterBean {
     
     public String register(){
         int genderNumber = this.gender.equals("M")?1:0;
+        role = "user";
         Users user = new UserController().register(username, name, email, 
                 password,genderNumber , role);
         return "index";

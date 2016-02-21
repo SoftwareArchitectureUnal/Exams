@@ -5,24 +5,24 @@
      xmlns:h="http://java.sun.com/jsf/html"
      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>Registro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <h:form>
-            Username
+            Nombre de usuario
             <br/>
             <h:inputText  value="#{registerBean.username}" required="true" requiredMessage="¡El nombre de usario es requerido" />
             <br/>
-            Name
+            Nombre completo
             <br/>
             <h:inputText value="#{registerBean.name}" required="true" requiredMessage="!El nombre es requerido¡" />
             <br/>
-            Email
+            Correo Electronico
             <br/>
             <h:inputText value="#{registerBean.email}" required="ture" requiredMessage="!El email es requerido¡" />
             <br/>
-            Password
+            Contraseña
             <br/>
             <h:inputSecret value="#{registerBean.password}" required="true" requiredMessage="!El password es requerido¡" />
             <br/>
@@ -33,6 +33,7 @@
                 <f:selectItem itemValue="F" itemLabel="F" />	   							
             </h:selectOneMenu>
             <br/>
+            <!--
             Rol
             <br/>
             <h:selectOneMenu value="#{registerBean.role}">
@@ -40,6 +41,9 @@
                 <f:selectItem itemValue="admin" itemLabel="adim" />	   							
             </h:selectOneMenu>
             <br/>
+            -->
+          
+                
             <h:commandButton action="#{registerBean.register()}" value="log in"/>
 
         </h:form>
