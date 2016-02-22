@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html lang="en"
      xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f="http://java.sun.com/jsf/core"
@@ -7,14 +8,86 @@
     <h:head>
         <title>Administrador</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--<link rel="stylesheet" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../css/bootstrap-theme.min.css" />-->
+        <link rel="stylesheet" href="../css/jquery-ui.css" />
     </h:head>
-    <body>
+      <h:body >
         <h1>Exámenes</h1>
-        <label for="exam-name">Nombre</label>
-        <input type="text" id="exam-name" placeholder="Nombre del examen"></input>
-        <label for="exam-date">Fecha de realización</label>
-        <input type="date" id="exam-date"></input>
-        
+        <h:form>
+            <label for="exam-id">Id</label>
+            <br/>
+            <h:inputText value="#{examBean.examId}" id="exam-id" ></h:inputText>
+            <br/><br/>
+            <label for="exam-name">Nombre</label>
+            <br/>
+            <h:inputText value="#{examBean.examName}" id="exam-name"></h:inputText>
+            <br/><br/>
+            <label for="exam-start-date">Fecha de Expedición</label>
+            <br/>
+            <h:inputText value="#{examBean.expeditionDate}" id="exam-start-date"></h:inputText>
+            <br/><br/>
+            <label for="exam-date">Fecha de realización</label>
+            <br/>
+            <h:inputText value="#{examBean.realizationDate}" id="exam-date"></h:inputText>
+            <br/><br/>
+            <label for="exam-description">Descripción</label>
+            <br/>
+            <h:inputTextarea value="#{examBean.description}" id="exam-description" rows="5" cols="50"></h:inputTextarea>
+            <br/>
+            <h:commandButton value="Guardar" id="btn-save" action="#{examBean.saveExam()}"></h:commandButton>
+        </h:form>
+        <h:form>
+            <ul>
+                <ui:repeat value="#{examBean.loadExam()}" var="exam">
+                    <li>
+                        <h:link value="#{exam.name}" outcome="exam">
+                            <f:param name="examId" value="#{exam.examId}"/>
+                        </h:link>
+                    </li>
+                </ui:repeat>
+            </ul>
+            
+
+            <h:dataTable value="#{examBean.loadExam()}"></h:dataTable>
+        </h:form>
         <div></div>
-    </body>
+        <script src="../js/external/jquery.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $( "[name$=':exam-start-date']" ).datepicker();
+                $( "[name$=':exam-start-date']" ).datepicker( "option", "showAnim", "slideDown" );
+                $( "[name$=':exam-start-date']" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+                $( "[name$=':exam-date']" ).datepicker();
+                $( "[name$=':exam-date']" ).datepicker( "option", "showAnim", "slideDown" );
+                $( "[name$=':exam-date']" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+                $( "[name$=':btn-save']" ).click(function( event ) {
+                    //<![CDATA[
+                    var startDate = $( "[name$=':exam-start-date']" ).val().split("/");
+                    var examDate = $( "[name$=':exam-date']" ).val().split("/");
+                    alert("fecha 1: " + startDate + " fecha 2: " + examDate);
+                    if( startDate[2] == examDate[2] ){
+                        if(startDate[1] == examDate[1]){
+                            if( startDate[0] > examDate[0] ){
+                                alert("El día de realización no puede ser menor al dia de expedición");
+                                event.preventDefault();
+                            }
+                        }else{
+                            if( startDate[1] > examDate[1] ){
+                                alert("El mes de realización no puede ser menor al mes de expedición");
+                                event.preventDefault();
+                            }
+                        }
+                    }else{
+                        if( startDate[2] > examDate[2] ){
+                            alert("El año de realización no puede ser menor al año de expedición");
+                            event.preventDefault();
+                        }
+                    }
+                    //]]>
+                });
+            });
+        </script>
+    </h:body>
 </html>

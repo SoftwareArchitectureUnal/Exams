@@ -8,6 +8,7 @@ package com.unal.exams.DataAccess.Entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+//import java.sql.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
