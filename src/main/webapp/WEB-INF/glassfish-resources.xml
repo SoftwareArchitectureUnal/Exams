@@ -13,4 +13,5 @@
     <jdbc-resource enabled="true" jndi-name="java:app/examsdbjndi" object-type="user" pool-name="mysql_examsdb_rootPool_1"/>
     <jdbc-resource enabled="true" jndi-name="java:app/examsdbjndi" object-type="user" pool-name="mysql_examsdb_rootPool_1"/>
     <jdbc-resource enabled="true" jndi-name="java:app/examsdbjndi" object-type="user" pool-name="mysql_examsdb_rootPool_1"/>
+   
 </resources>
