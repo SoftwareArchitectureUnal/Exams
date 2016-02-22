@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!--<link rel="stylesheet" href="../css/bootstrap.min.css" />
 	<link rel="stylesheet" href="../css/bootstrap-theme.min.css" />-->
+        <link rel="stylesheet" href="../css/table-styles.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
     </h:head>
       <h:body >
@@ -38,18 +39,42 @@
             <h:commandButton value="Guardar" id="btn-save" action="#{examBean.saveExam()}"></h:commandButton>
         </h:form>
         <h:form>
-            <ul>
-                <ui:repeat value="#{examBean.loadExam()}" var="exam">
-                    <li>
-                        <h:link value="#{exam.name}" outcome="exam">
+             <h:dataTable value="#{examBean.loadExam()}" var="exam" styleClass="order-table" headerClass="order-table-header" 
+                          rowClasses="order-table-odd-row,order-table-even-row" columnClasses="order-table-column-id,order-table-column-name,
+                          order-table-column-description,order-table-column-fecha,order-table-column-fecha,order-table-column-id,order-table-column-id" >
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        #{exam.examId}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                        #{exam.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Descripción</f:facet>
+                        #{exam.description}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha de publicación</f:facet>
+                        #{exam.expeditionDate}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha de presentación</f:facet>
+                        #{exam.realizationDate}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Actualizar</f:facet>
+                        <h:commandButton action="update" value="Actualizar">
                             <f:param name="examId" value="#{exam.examId}"/>
-                        </h:link>
-                    </li>
-                </ui:repeat>
-            </ul>
-            
-
-            <h:dataTable value="#{examBean.loadExam()}"></h:dataTable>
+                        </h:commandButton>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Eliminar</f:facet>
+                        <h:commandButton action="#{examBean.deleteExam(exam)}" value="Eliminar">
+                            <f:attribute name="exam" value="#{exam}" />
+                        </h:commandButton>
+                    </h:column>
+            </h:dataTable>
         </h:form>
         <div></div>
         <script src="../js/external/jquery.js"></script>
@@ -64,8 +89,8 @@
                 $( "[name$=':exam-date']" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
                 $( "[name$=':btn-save']" ).click(function( event ) {
                     //<![CDATA[
-                    var startDate = $( "[name$=':exam-start-date']" ).val().split("/");
-                    var examDate = $( "[name$=':exam-date']" ).val().split("/");
+                    var startDate = $( "[name$=':exam-start-date']" ).val().split("-");
+                    var examDate = $( "[name$=':exam-date']" ).val().split("-");
                     alert("fecha 1: " + startDate + " fecha 2: " + examDate);
                     if( startDate[2] == examDate[2] ){
                         if(startDate[1] == examDate[1]){

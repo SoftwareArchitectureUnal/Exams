@@ -17,7 +17,7 @@ import java.util.Date;
 public class ExamController {
     
     public Exams insert(int examId, String examName, Date expeditionDate, Date realizationDate, String description){
-        System.out.println("----------------"+examId+" "+examName+" "+expeditionDate+" "+realizationDate+" "+description);
+        System.out.println("---insert----"+examId+" "+examName+" "+expeditionDate+" "+realizationDate+" "+description);
         ExamsDAO examsDAO = new ExamsDAO();
         Exams exam = new Exams();
         exam.setExamId(examId);
@@ -27,6 +27,12 @@ public class ExamController {
         exam.setDescription(description);
         Exams temp = examsDAO.insert(exam);
         return temp;
+    }
+    
+    public boolean deleteByExamId(Exams exam){
+        System.out.println("---delete----"+exam);
+        ExamsDAO examsDAO = new ExamsDAO();
+        return examsDAO.deleteByExamId(exam);
     }
     
     public Collection<Exams> findAll(){

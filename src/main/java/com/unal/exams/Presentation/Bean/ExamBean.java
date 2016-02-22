@@ -68,7 +68,12 @@ public class ExamBean {
         this.description = description;
     }
     
-    public String saveExam(){
+    public void onload(int examId) {
+        this.examId = examId;
+        System.out.println( "examid "+this.examId );
+    }
+    
+    public void saveExam(){
         try{
             DateFormat sourceFormat = new SimpleDateFormat("dd-MM-yyyy");
             String expDateAsString = expeditionDate;
@@ -76,12 +81,11 @@ public class ExamBean {
             
             String realDateAsString = realizationDate;
             Date realDate = sourceFormat.parse(realDateAsString);
-            Exams exam = new ExamController().insert(examId, examName, realDate, expDate, description);
+            Exams exam = new ExamController().insert(examId, examName, expDate, realDate, description);
         }catch(Exception e){
             System.out.println( "error al guardar ");
             e.printStackTrace();
         }
-        return "";
     }
     
     public Collection<Exams> loadExam(){
@@ -92,6 +96,16 @@ public class ExamBean {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public void deleteExam(Exams exam){
+        System.out.println("eliminar " + exam);
+        try{
+            new ExamController().deleteByExamId(exam);
+        }catch(Exception e){
+            System.out.println( "error al borrar " + exam);
+            e.printStackTrace();
+        }
     }
      
 }

@@ -31,23 +31,37 @@ public class ExamsDAO {
             em.getTransaction().rollback();
             return null;
         }finally{
+            em.close();
             return exam;
         }
     }
     
     public Collection<Exams> findAllExams() {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
         Query query;
         try{
-            Exams exams = new Exams();
-            
-            query = em.createQuery("SELECT e FROM Exams e");
+            query = em.createNamedQuery("Exams.findAll");
             return (Collection<Exams>) query.getResultList();
         }catch(Exception e){
-            em.getTransaction().rollback();
+            e.printStackTrace();
             return null;
         }
-      }
+    }
+    
+    public boolean deleteByExamId(Exams exam) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try{
+            exam = em.merge(exam);
+            em.remove(exam);
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }finally{
+            em.close();
+        }
+        return true;
+    }
 
 }
