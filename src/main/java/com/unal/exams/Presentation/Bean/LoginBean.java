@@ -26,7 +26,7 @@ public class LoginBean {
     
     private String password;
     private String username;
-
+    private String link1="/user/index.jsp";
     public String getPassword() {
         return password;
     }
@@ -82,7 +82,7 @@ public class LoginBean {
         Users userSession = (Users)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
         if(userSession!=null){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userSession);
-            return "/user/index";
+            return link1;
         }else{
             UserController userController = new UserController();
             Users user = userController.login(username, password);
@@ -90,7 +90,7 @@ public class LoginBean {
 
             if(user!=null){
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
-                return "/user/index";
+                return link1;
             }
             return "login";
         }
@@ -113,7 +113,7 @@ public class LoginBean {
         if(userSession!=null){
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", userSession);
             
-            return "/user/index";
+            return link1;
         }
         return "login";
     }
