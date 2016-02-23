@@ -14,8 +14,8 @@
 
         <!--<link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/bootstrap-theme.min.css" />-->
-        <link rel="stylesheet" href="../css/table-styles.css" />
-        <link rel="stylesheet" href="../css/jquery-ui.css" />
+        <link rel="stylesheet" href="css/table-styles.css"/>
+        <link rel="stylesheet" href="css/jquery-ui.css"/>
     </h:head>
     <h:body>
 
@@ -26,6 +26,7 @@
 
         </h:form>
         <br/>
+        <h3>Ingresar</h3>
         <h:form>
             <label for="exam-id">Id</label>
             <br/>
@@ -49,6 +50,7 @@
             <br/>
             <h:commandButton value="Guardar" id="btn-save" action="#{examBean.saveExam()}"></h:commandButton>
         </h:form>
+        <h3>Consultar</h3>
         <h:form>
             <h:dataTable value="#{examBean.loadExam()}" var="exam" styleClass="order-table" headerClass="order-table-header" 
                          rowClasses="order-table-odd-row,order-table-even-row" columnClasses="order-table-column-id,order-table-column-name,
@@ -67,11 +69,21 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Fecha de publicación</f:facet>
-                        #{exam.expeditionDate}
+                    <c:if test="#{exam.expeditionDate.month+1 lt 10}">
+                        #{exam.expeditionDate.date}/0#{exam.expeditionDate.month+1}/#{exam.expeditionDate.year+1900}
+                    </c:if>
+                    <c:if test="#{exam.expeditionDate.month+1 ge 10}">
+                        #{exam.expeditionDate.date}/#{exam.expeditionDate.month+1}/#{exam.expeditionDate.year+1900}
+                    </c:if>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Fecha de presentación</f:facet>
-                        #{exam.realizationDate}
+                    <c:if test="#{exam.realizationDate.month+1 lt 10}">
+                        #{exam.realizationDate.date}/0#{exam.realizationDate.month+1}/#{exam.realizationDate.year+1900}
+                    </c:if>
+                    <c:if test="#{exam.realizationDate.month+1 ge 10}">
+                        #{exam.realizationDate.date}/#{exam.realizationDate.month+1}/#{exam.realizationDate.year+1900}
+                    </c:if>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Actualizar</f:facet>
@@ -85,7 +97,7 @@
                 </h:column>
             </h:dataTable>
         </h:form>
-
+        <h3>Actualizar</h3>
         <h:form class="form-update">
             <label for="exam-id-up">Id</label>
             <br/>
@@ -109,15 +121,13 @@
             <br/>
             <h:commandButton value="Actualizar" id="btn-update" action="#{examBean.updateExam()}"></h:commandButton>
         </h:form>
-
-        <div></div>
-        <script src="../js/external/jquery.js"></script>
-        <script type="text/javascript" src="../js/jquery-ui.js"></script>
+        <script src="js/external/jquery.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.js"></script>
         <script type="text/javascript">
             $(function () {
                 $(".datepicker").datepicker({
                     showOtherMonths: true, selectOtherMonths: true, changeMonth: true,
-                    changeYear: true, numberOfMonths: 3, showWeek: true, minDate: 0
+                    changeYear: true, numberOfMonths: 2, showWeek: true, minDate: 0
                 });
                 $(".datepicker").datepicker("option", "showAnim", "slideDown");
                 $(".datepicker").datepicker("option", "dateFormat", "dd-mm-yy");
@@ -154,6 +164,5 @@
                 });
             });
         </script>
-
     </h:body>
 </html>

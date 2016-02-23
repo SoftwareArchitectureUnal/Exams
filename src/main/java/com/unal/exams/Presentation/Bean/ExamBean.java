@@ -138,7 +138,7 @@ public class ExamBean {
         inputDescription.setValue( exam.getDescription() );
     }
     
-    private String dateToString(Date date){
+    public String dateToString(Date date){
         String dateString = date.getDate() + "/";
         int month = date.getMonth() + 1;
         if( month < 10)
