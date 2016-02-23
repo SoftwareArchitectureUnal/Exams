@@ -1,19 +1,159 @@
-<!DOCTYPE html>
-  <html lang="en"
-     xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:f="http://java.sun.com/jsf/core"
-     xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:ui="http://java.sun.com/jsf/facelets">
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>TODO supply a title</title>
-        
+
+        <title>Administrador</title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
+
+        <!--<link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap-theme.min.css" />-->
+        <link rel="stylesheet" href="../css/table-styles.css" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" />
     </h:head>
-     <h:body>
+    <h:body>
+
+
+        <h1>Exámenes</h1>
         <h:form>
             <h:commandButton action="#{loginBean.logoutAdmin()}" value="log out"/>
 
         </h:form>
+        <br/>
+        <h:form>
+            <label for="exam-id">Id</label>
+            <br/>
+            <h:inputText value="#{examBean.examId}" id="exam-id" ></h:inputText>
+            <br/><br/>
+            <label for="exam-name">Nombre</label>
+            <br/>
+            <h:inputText value="#{examBean.examName}" id="exam-name"></h:inputText>
+            <br/><br/>
+            <label for="exam-start-date">Fecha de Expedición</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.expeditionDate}" id="exam-start-date"></h:inputText>
+            <br/><br/>
+            <label for="exam-date">Fecha de realización</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.realizationDate}" id="exam-date"></h:inputText>
+            <br/><br/>
+            <label for="exam-description">Descripción</label>
+            <br/>
+            <h:inputTextarea value="#{examBean.description}" id="exam-description" rows="5" cols="50"></h:inputTextarea>
+            <br/>
+            <h:commandButton value="Guardar" id="btn-save" action="#{examBean.saveExam()}"></h:commandButton>
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{examBean.loadExam()}" var="exam" styleClass="order-table" headerClass="order-table-header" 
+                         rowClasses="order-table-odd-row,order-table-even-row" columnClasses="order-table-column-id,order-table-column-name,
+                         order-table-column-description,order-table-column-fecha,order-table-column-fecha,order-table-column-id,order-table-column-id" >
+                <h:column>
+                    <f:facet name="header">Id</f:facet>
+                        #{exam.examId}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nombre</f:facet>
+                        #{exam.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Descripción</f:facet>
+                        #{exam.description}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha de publicación</f:facet>
+                        #{exam.expeditionDate}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha de presentación</f:facet>
+                        #{exam.realizationDate}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Actualizar</f:facet>
+                    <h:commandButton class="update-btn" action="#{examBean.onLoad(exam)}" value="Actualizar"></h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Eliminar</f:facet>
+                    <h:commandButton action="#{examBean.deleteExam(exam)}" value="Eliminar">
+                        <f:attribute name="exam" value="#{exam}" />
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+        <h:form class="form-update">
+            <label for="exam-id-up">Id</label>
+            <br/>
+            <h:inputText value="#{examBean.examId}" binding="#{examBean.inputExamId}" id="exam-id-up" disabled="true"></h:inputText>
+            <br/><br/>
+            <label for="exam-name-up">Nombre</label>
+            <br/>
+            <h:inputText value="#{examBean.examName}" binding="#{examBean.inputExamName}" id="exam-name-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-start-date-up">Fecha de Expedición</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.expeditionDate}" binding="#{examBean.inputExpDate}" id="exam-start-date-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-date-up">Fecha de realización</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.realizationDate}" binding="#{examBean.inputRealDate}" id="exam-date-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-description-up">Descripción</label>
+            <br/>
+            <h:inputTextarea value="#{examBean.description}" binding="#{examBean.inputDescription}" id="exam-description-up" rows="5" cols="50"></h:inputTextarea>
+            <br/>
+            <h:commandButton value="Actualizar" id="btn-update" action="#{examBean.updateExam()}"></h:commandButton>
+        </h:form>
+
+        <div></div>
+        <script src="../js/external/jquery.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $(".datepicker").datepicker({
+                    showOtherMonths: true, selectOtherMonths: true, changeMonth: true,
+                    changeYear: true, numberOfMonths: 3, showWeek: true, minDate: 0
+                });
+                $(".datepicker").datepicker("option", "showAnim", "slideDown");
+                $(".datepicker").datepicker("option", "dateFormat", "dd-mm-yy");
+                $(".update-btn").click(function () {
+                    $(".form-update").show();
+                });
+                $(".btn-update").click(function () {
+                    $(".form-update").hide();
+                });
+
+                $("[name$=':btn-save']").click(function (event) {
+                    //<![CDATA[
+                    var startDate = $("[name$=':exam-start-date']").val().split("-");
+                    var examDate = $("[name$=':exam-date']").val().split("-");
+                    if (startDate[2] == examDate[2]) {
+                        if (startDate[1] == examDate[1]) {
+                            if (startDate[0] > examDate[0]) {
+                                alert("El día de realización no puede ser menor al dia de expedición");
+                                event.preventDefault();
+                            }
+                        } else {
+                            if (startDate[1] > examDate[1]) {
+                                alert("El mes de realización no puede ser menor al mes de expedición");
+                                event.preventDefault();
+                            }
+                        }
+                    } else {
+                        if (startDate[2] > examDate[2]) {
+                            alert("El año de realización no puede ser menor al año de expedición");
+                            event.preventDefault();
+                        }
+                    }
+                    //]]>
+                });
+            });
+        </script>
+
     </h:body>
 </html>

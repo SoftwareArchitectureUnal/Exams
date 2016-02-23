@@ -15,31 +15,29 @@ import javax.persistence.Persistence;
  * @author AndresGutierrez
  */
 public class UsersDAO {
-     public EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceUnitExams");
-   public Users persist(Users user){
-       EntityManager em = emf.createEntityManager();
-       em.getTransaction().begin();
-       try{
-           em.persist(user);
-           em.getTransaction().commit();
-       }catch(Exception e){
-           em.getTransaction().rollback();
-           return null;
-       }finally{
-           return user;
-       }
-   }
+    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceUnitExams");
+    public Users persist(Users user){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try{
+            em.persist(user);
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            return null;
+        }finally{
+            return user;
+        }
+    }
    
-   public Users searchUserByUsername(String username){
-       EntityManager em = emf.createEntityManager();
-       Users users = null;
-       try{
-           
-           users = em.find(Users.class, username);
-       }catch(Exception e){}
-       finally{
-           return users;
-       }
-   }
-    
+    public Users searchUserByUsername(String username){
+        EntityManager em = emf.createEntityManager();
+        Users users = null;
+        try{   
+            users = em.find(Users.class, username);
+        }catch(Exception e){}
+        finally{
+            return users;
+        }
+    }
 }
