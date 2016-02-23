@@ -4,7 +4,8 @@
      xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f="http://java.sun.com/jsf/core"
      xmlns:h="http://java.sun.com/jsf/html"
-     xmlns:ui="http://java.sun.com/jsf/facelets">
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Administrador</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -26,11 +27,11 @@
             <br/><br/>
             <label for="exam-start-date">Fecha de Expedición</label>
             <br/>
-            <h:inputText value="#{examBean.expeditionDate}" id="exam-start-date"></h:inputText>
+            <h:inputText styleClass="datepicker" value="#{examBean.expeditionDate}" id="exam-start-date"></h:inputText>
             <br/><br/>
             <label for="exam-date">Fecha de realización</label>
             <br/>
-            <h:inputText value="#{examBean.realizationDate}" id="exam-date"></h:inputText>
+            <h:inputText styleClass="datepicker" value="#{examBean.realizationDate}" id="exam-date"></h:inputText>
             <br/><br/>
             <label for="exam-description">Descripción</label>
             <br/>
@@ -64,9 +65,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Actualizar</f:facet>
-                        <h:commandButton action="update" value="Actualizar">
-                            <f:param name="examId" value="#{exam.examId}"/>
-                        </h:commandButton>
+                        <h:commandButton class="update-btn" action="#{examBean.onLoad(exam)}" value="Actualizar"></h:commandButton>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Eliminar</f:facet>
@@ -76,22 +75,53 @@
                     </h:column>
             </h:dataTable>
         </h:form>
+        
+        <h:form class="form-update">
+            <label for="exam-id-up">Id</label>
+            <br/>
+            <h:inputText value="#{examBean.examId}" binding="#{examBean.inputExamId}" id="exam-id-up" disabled="true"></h:inputText>
+            <br/><br/>
+            <label for="exam-name-up">Nombre</label>
+            <br/>
+            <h:inputText value="#{examBean.examName}" binding="#{examBean.inputExamName}" id="exam-name-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-start-date-up">Fecha de Expedición</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.expeditionDate}" binding="#{examBean.inputExpDate}" id="exam-start-date-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-date-up">Fecha de realización</label>
+            <br/>
+            <h:inputText styleClass="datepicker" value="#{examBean.realizationDate}" binding="#{examBean.inputRealDate}" id="exam-date-up"></h:inputText>
+            <br/><br/>
+            <label for="exam-description-up">Descripción</label>
+            <br/>
+            <h:inputTextarea value="#{examBean.description}" binding="#{examBean.inputDescription}" id="exam-description-up" rows="5" cols="50"></h:inputTextarea>
+            <br/>
+            <h:commandButton value="Actualizar" id="btn-update" action="#{examBean.updateExam()}"></h:commandButton>
+        </h:form>
+        
         <div></div>
         <script src="../js/external/jquery.js"></script>
         <script type="text/javascript" src="../js/jquery-ui.js"></script>
         <script type="text/javascript">
             $(function() {
-                $( "[name$=':exam-start-date']" ).datepicker();
-                $( "[name$=':exam-start-date']" ).datepicker( "option", "showAnim", "slideDown" );
-                $( "[name$=':exam-start-date']" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
-                $( "[name$=':exam-date']" ).datepicker();
-                $( "[name$=':exam-date']" ).datepicker( "option", "showAnim", "slideDown" );
-                $( "[name$=':exam-date']" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+                $( ".datepicker" ).datepicker({ 
+                    showOtherMonths: true, selectOtherMonths: true, changeMonth: true, 
+                    changeYear: true, numberOfMonths: 3, showWeek: true,  minDate: 0
+                });
+                $( ".datepicker" ).datepicker( "option", "showAnim", "slideDown" );
+                $( ".datepicker" ).datepicker( "option", "dateFormat", "dd-mm-yy" );
+                $( ".update-btn").click(function(){
+                    $( ".form-update" ).show();
+                });
+                $( ".btn-update").click(function(){
+                    $( ".form-update" ).hide();
+                });
+                
                 $( "[name$=':btn-save']" ).click(function( event ) {
                     //<![CDATA[
                     var startDate = $( "[name$=':exam-start-date']" ).val().split("-");
                     var examDate = $( "[name$=':exam-date']" ).val().split("-");
-                    alert("fecha 1: " + startDate + " fecha 2: " + examDate);
                     if( startDate[2] == examDate[2] ){
                         if(startDate[1] == examDate[1]){
                             if( startDate[0] > examDate[0] ){

@@ -9,10 +9,13 @@ import com.unal.exams.BusinessLogic.Controller.User.ExamController;
 import com.unal.exams.DataAccess.Entity.Exams;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlInputText;
 
 /**
  *
@@ -22,11 +25,67 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class ExamBean {
     
+    private HtmlInputText inputExpDate = new HtmlInputText();
+    private HtmlInputText inputRealDate = new HtmlInputText();
+    private HtmlInputText inputExamName = new HtmlInputText();
+    private HtmlInputText inputExamId = new HtmlInputText();
+    private HtmlInputText inputDescription = new HtmlInputText();
+    
     private int examId;
     private String examName;
     private String expeditionDate;
     private String realizationDate;
     private String description;
+    
+    private Exams exam;
+    
+    public HtmlInputText getInputExamName() {
+        return inputExamName;
+    }
+
+    public void setInputExamName(HtmlInputText inputExamName) {
+        this.inputExamName = inputExamName;
+    }
+
+    public HtmlInputText getInputExamId() {
+        return inputExamId;
+    }
+
+    public void setInputExamId(HtmlInputText inputExamId) {
+        this.inputExamId = inputExamId;
+    }
+
+    public HtmlInputText getInputDescription() {
+        return inputDescription;
+    }
+
+    public void setInputDescription(HtmlInputText inputDescription) {
+        this.inputDescription = inputDescription;
+    }
+    
+    public HtmlInputText getInputRealDate() {
+        return inputRealDate;
+    }
+
+    public void setInputRealDate(HtmlInputText inputRealDate) {
+        this.inputRealDate = inputRealDate;
+    }
+    
+    public HtmlInputText getInputExpDate() {
+        return inputExpDate;
+    }
+
+    public void setInputExpDate(HtmlInputText inputExpDate) {
+        this.inputExpDate = inputExpDate;
+    }
+
+    public Exams getExam() {
+        return exam;
+    }
+
+    public void setExam(Exams Exam) {
+        this.exam = Exam;
+    }
     
     public int getExamId() {
         return examId;
@@ -45,6 +104,8 @@ public class ExamBean {
     }
 
     public String getExpeditionDate() {
+        if(expeditionDate != null)
+            System.out.println("fechaaaaaa " + Arrays.toString(expeditionDate.split(" ")));
         return expeditionDate;
     }
 
@@ -68,9 +129,23 @@ public class ExamBean {
         this.description = description;
     }
     
-    public void onload(int examId) {
-        this.examId = examId;
-        System.out.println( "examid "+this.examId );
+    public void onLoad(Exams exam) {
+        this.exam = exam;
+        inputExpDate.setValue( dateToString(exam.getExpeditionDate()) );
+        inputRealDate.setValue( dateToString(exam.getRealizationDate()) );
+        inputExamId.setValue( exam.getExamId() );
+        inputExamName.setValue( exam.getName() );
+        inputDescription.setValue( exam.getDescription() );
+    }
+    
+    private String dateToString(Date date){
+        String dateString = date.getDate() + "/";
+        int month = date.getMonth() + 1;
+        if( month < 10)
+            dateString += "0" + month;
+        else
+            dateString += "" + month;
+        return dateString + "/" + (date.getYear() + 1900);
     }
     
     public void saveExam(){
@@ -99,11 +174,25 @@ public class ExamBean {
     }
     
     public void deleteExam(Exams exam){
-        System.out.println("eliminar " + exam);
         try{
             new ExamController().deleteByExamId(exam);
         }catch(Exception e){
             System.out.println( "error al borrar " + exam);
+            e.printStackTrace();
+        }
+    }
+    
+    public void updateExam(){
+        try{
+            DateFormat sourceFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String expDateAsString = expeditionDate;
+            Date expDate = sourceFormat.parse(expDateAsString);
+            
+            String realDateAsString = realizationDate;
+            Date realDate = sourceFormat.parse(realDateAsString);
+            Exams exam = new ExamController().update(examId, examName, expDate, realDate, description);
+        }catch(Exception e){
+            System.out.println( "error al actualizar ");
             e.printStackTrace();
         }
     }

@@ -12,14 +12,10 @@ and open the template in the editor.
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <f:metadata>
-            <f:viewParam name="examId" value="#{examBean.examId}"></f:viewParam>
-            <f:event type="preRenderView" listener="#{examBean.onload(examBean.examId)}" />
-        </f:metadata>
     </head>
     <body>
         <div>TODO write content 
-            <h:outputText value="Selected id is #{examBean.examId}" />
+            <h:outputText value="Selected id is #{examBean.exam.examId}" />
         </div>
     </body>
 </html>

@@ -29,6 +29,19 @@ public class ExamController {
         return temp;
     }
     
+    public Exams update(int examId, String examName, Date expeditionDate, Date realizationDate, String description){
+        System.out.println("---update----"+examId+" "+examName+" "+expeditionDate+" "+realizationDate+" "+description);
+        ExamsDAO examsDAO = new ExamsDAO();
+        Exams exam = new Exams();
+        exam.setExamId(examId);
+        exam.setName(examName);
+        exam.setExpeditionDate(expeditionDate);
+        exam.setRealizationDate(realizationDate);
+        exam.setDescription(description);
+        Exams temp = examsDAO.update(exam);
+        return temp;
+    }
+    
     public boolean deleteByExamId(Exams exam){
         System.out.println("---delete----"+exam);
         ExamsDAO examsDAO = new ExamsDAO();

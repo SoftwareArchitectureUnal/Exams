@@ -32,8 +32,27 @@ public class ExamsDAO {
             return null;
         }finally{
             em.close();
-            return exam;
         }
+        return exam;
+    }
+    
+    public Exams update(Exams exam){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try{
+            Exams exUpdate = em.find(Exams.class, exam.getExamId());
+            exUpdate.setName(exam.getName());
+            exUpdate.setExpeditionDate(exam.getExpeditionDate());
+            exUpdate.setRealizationDate(exam.getRealizationDate());
+            exUpdate.setDescription(exam.getDescription());
+            em.getTransaction().commit();
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            return null;
+        }finally{
+            em.close();
+        }
+        return exam;
     }
     
     public Collection<Exams> findAllExams() {
@@ -43,7 +62,6 @@ public class ExamsDAO {
             query = em.createNamedQuery("Exams.findAll");
             return (Collection<Exams>) query.getResultList();
         }catch(Exception e){
-            e.printStackTrace();
             return null;
         }
     }
@@ -57,7 +75,6 @@ public class ExamsDAO {
             em.getTransaction().commit();
         }catch(Exception e){
             em.getTransaction().rollback();
-            e.printStackTrace();
         }finally{
             em.close();
         }
