@@ -1,10 +1,3 @@
-<%-- 
-    Document   : examRegister
-    Created on : 22-feb-2016, 22:27:48
-    Author     : yeisondavid
---%>
-
-<%@page import="java.util.Iterator"%>
 <%@page import="java.util.Collection"%>
 <%@page import="com.unal.exams.BusinessLogic.Controller.User.ExamRegisterController"%>
 <%@page import="com.unal.exams.DataAccess.Entity.Exams"%>
@@ -17,20 +10,39 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Examenes</h1>
         <table>
             <%
                 Collection<Exams> lista = ExamRegisterController.allExams();
+                out.println("<tr>");
+                    out.println("<td>ID             </td>");
+                    out.println("<td>Nombre             </td>");
+                    out.println("<td>Descripción        </td>");
+                    out.println("<td>Fecha           </td>");
+                    out.println("</tr>");
                 for( Exams myExam : lista)
                 {
                     out.println("<tr>");
-                    out.println("<td>"+myExam.getName()+"</td>");
-//                    out.println("<td>"+lista.get(i).getNombre()+"</td>");
-//                    out.println("<td>"+lista.get(i).getApellido()+"</td>");
-//                    out.println("<td>"+lista.get(i).getTelefono()+"</td>");
+                    out.println("<td>"+myExam.getExamId()+"               "+"</td>");
+                    out.println("<td>"+myExam.getName()+"               "+"</td>");
+                    out.println("<td>"+myExam.getDescription()+"              "+"</td>");
+                    out.println("<td>"+myExam.getRealizationDate()+"             "+"</td>");
+                    out.println("<td>");
+                  
+                    
+                    
+                    out.println("</td");
                     out.println("</tr>");
                 }
             %>
         </table>
+        
+        <h1>Incribir </h1>
+        <h2>(Ingresar ID)</h2>
+        <form action="./RegExamServlet" method="post" >
+                <input type="number" name = "idExam" >
+                <input type="submit" value="Incribirse"/>
+         </form>
+        
     </body>
 </html>
