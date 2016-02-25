@@ -1,0 +1,41 @@
+<%-- 
+    Document   : login
+    Created on : Feb 25, 2016, 12:19:04 AM
+    Author     : AndresGutierrez
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Login</title>
+        
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signUp.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+    </head>
+    <body>
+        <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        <c:if test="${login!=null}" >
+            <div class="alert alert-danger">
+                <strong>Error!</strong> No se pudo hacer el login
+            </div>
+        </c:if>
+        <div class="container">
+            <form class="form-signin" method="post" action="${pageContext.request.contextPath}/LoginServlet">
+                <h2 class="form-signin-heading">Por favor hacer el login</h2>
+                <label for="inputUsername" class="sr-only" >Nombre de usuario</label>
+                <input type="text" id="inputUsername" name="inputUsername" class="form-control"
+                       placeholder="Nombre de usario" required autofocus>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" name="inputPassword" onchange="checkPassword()" class="form-control"
+                       placeholder="Contraseña" required>
+                <button id="signUp" class="btn btn-lg btn-primary btn-block" type="submit" >Inicio de session</button>
+
+            </form>
+        </div>
+        <%@include file="/WEB-INF/jspf/footer.jspf" %>
+    </body>
+</html>

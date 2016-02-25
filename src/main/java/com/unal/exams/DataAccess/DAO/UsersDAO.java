@@ -21,12 +21,10 @@ public class UsersDAO {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try{
-            if(!em.contains(user)){
-                em.persist(user);
-                em.getTransaction().commit();
-            }else{
-                return null;
-            }
+            
+            em.persist(user);
+            em.getTransaction().commit();
+            
         }catch(Exception e){
             em.getTransaction().rollback();
             return null;

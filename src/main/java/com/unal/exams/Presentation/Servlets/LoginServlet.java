@@ -6,39 +6,30 @@
 package com.unal.exams.Presentation.Servlets;
 
 import com.unal.exams.BusinessLogic.Controller.User.UserController;
-import com.unal.exams.DataAccess.DAO.UsersDAO;
+import com.unal.exams.DataAccess.Entity.Users;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.unal.exams.DataAccess.DAO.UsersDAO;
-import com.unal.exams.DataAccess.Entity.Users;
 
 /**
  *
  * @author AndresGutierrez
  */
-
-public class SignUpServlet extends HttpServlet{
-    public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
-        String username = (String) req.getParameter("inputUsername");
-        String name = (String) req.getParameter("inputName");
-        String password = (String) req.getParameter("inputPassword");
-        String email = (String) req.getParameter("inputEmail");
-        int gender =  Integer.parseInt((String)req.getParameter("gender"));
-        System.out.println(email);
+public class LoginServlet extends HttpServlet {
+    
+    public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        String username = req.getParameter("inputUsername");
+        String password = req.getParameter("inputPassword");
         UserController userController = new UserController();
-        Users userTemp = userController.register(username, name, email, password, gender, "user");
-        
-        
-        if(userTemp!=null){// The register was successful
-            req.getSession().setAttribute("user", userTemp);
+        Users user = userController.login(username, password);
+        if(user!=null){//The login was successful
+            req.getSession().setAttribute("user", user);
             req.getRequestDispatcher("/user/index.jsp").forward(req, resp);
         }else{
-            req.setAttribute("signUp", "error");
-            req.getRequestDispatcher("/signUp.jsp").forward(req, resp);
+            req.getSession().setAttribute("login", "error");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }
     @Override
@@ -51,6 +42,5 @@ public class SignUpServlet extends HttpServlet{
         handleRequest(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
     
-       
     
 }

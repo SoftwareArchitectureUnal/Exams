@@ -36,7 +36,11 @@ public class UserController {
            user.setGender(gender);
            user.setPassword(password);
            user.setRole(role);
-           Users temp = usersDAO.persist(user);
+           Users temp = usersDAO.searchUserByUsername(username);
+           if(temp!=null){
+               return null;
+           }
+           temp = usersDAO.persist(user);
            return temp;
     
     }

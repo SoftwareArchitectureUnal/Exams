@@ -1,0 +1,19 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signUp.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+</head>
+<div class="container">
+    <form class="form-signin" method="post" action="${pageContext.request.contextPath}/LoginAdminServlet" >
+        <h2 class="form-signin-heading">Por favor hacer el login</h2>
+        <label for="inputUsername" class="sr-only" >Nombre de usuario</label>
+        <input type="text" id="inputUsername" name="j_username" class="form-control"
+               placeholder="Nombre de usario" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="j_password" class="form-control"
+               placeholder="Contraseña" required>
+        <button id="signUp" class="btn btn-lg btn-primary btn-block" action="${loginBean.loginAdmin()}" type="submit" >Inicio de session</h:commandButton>
+    </form>
+</div>

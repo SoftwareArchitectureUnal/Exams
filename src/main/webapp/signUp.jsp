@@ -11,17 +11,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign up</title>
-        <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-        <link rel="stylesheet" href="resources/css/signUp.css">
-        <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="resources/js/jquery.js"></script>
-        <script type="text/javascript" src="resources/js/signUp.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signUp.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/signUp.js"></script>
       
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/menu.jspf" %>
-        <c:if test="${signUp=='error'}" >
-            <div class="alert alert-warning">
+        <c:if test="${signUp!=null}" >
+            <div class="alert alert-danger">
                 <strong>Error!</strong> No se pudo hacer el registro
             </div>
         </c:if>
@@ -32,7 +32,7 @@
                 <input type="text" id="inputUsername" name="inputUsername" class="form-control"
                        placeholder="Nombre de usario" required autofocus>
                 <label for="inputEmail" class="sr-only">Correo Electronico</label>
-                <input type="emial" id="inputEmail" name="inputEmial" class="form-control"
+                <input type="email" id="inputEmail" name="inputEmail" class="form-control"
                        placeholder="Direccion de correo" required>
                 <label for="inputName" class="sr-only">Name</label>
                 <input type="text" id="inputName" name="inputName" class="form-control"

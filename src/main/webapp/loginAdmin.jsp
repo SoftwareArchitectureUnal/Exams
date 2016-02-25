@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Feb 24, 2016, 7:02:15 PM
+    Document   : loginAdmin
+    Created on : Feb 25, 2016, 12:39:30 AM
     Author     : AndresGutierrez
 --%>
 
@@ -9,13 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Exams</title>
+        <title>Login</title>
+        
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/signUp.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        
+        <%@include file="/WEB-INF/jspf/login.jspf" %>
         <%@include file="/WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

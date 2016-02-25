@@ -17,6 +17,30 @@
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/SignUpServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginAdminServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.LoginAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginAdminServlet</servlet-name>
+        <url-pattern>/LoginAdminServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
     <login-config>
         <auth-method>
             FORM
@@ -25,8 +49,8 @@
             Authentication required
         </realm-name>
         <form-login-config>
-            <form-login-page>/loginAdm.xhtml</form-login-page>
-            <form-error-page>/loginAdm.xhtml</form-error-page>
+            <form-login-page>/loginAdmin.jsp</form-login-page>
+            <form-error-page>/loginError.jsp</form-error-page>
         </form-login-config>
     </login-config>
     <security-constraint>
