@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+
 /**
  *
  * @author AndresGutierrez
@@ -20,12 +21,17 @@ public class UsersDAO {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try{
-            em.persist(user);
-            em.getTransaction().commit();
+            if(!em.contains(user)){
+                em.persist(user);
+                em.getTransaction().commit();
+            }else{
+                return null;
+            }
         }catch(Exception e){
             em.getTransaction().rollback();
             return null;
         }finally{
+            em.close();
             return user;
         }
     }

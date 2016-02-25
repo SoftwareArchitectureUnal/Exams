@@ -9,6 +9,14 @@
             30
         </session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUpServlet</url-pattern>
+    </servlet-mapping>
     <login-config>
         <auth-method>
             FORM
@@ -35,6 +43,6 @@
         <role-name>admin</role-name>
     </security-role>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
