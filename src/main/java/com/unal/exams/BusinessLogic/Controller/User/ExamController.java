@@ -48,7 +48,7 @@ public class ExamController {
         return examsDAO.deleteByExamId(exam);
     }
     
-    public Collection<Exams> findAll(){
+    public static Collection<Exams> findAll(){
         ExamsDAO examsDAO = new ExamsDAO();
         return examsDAO.findAllExams();
     }

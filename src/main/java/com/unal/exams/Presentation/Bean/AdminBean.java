@@ -26,7 +26,7 @@ public class AdminBean {
          
         HttpServletResponse response = (HttpServletResponse) 
           context.getExternalContext().getResponse();
-        response.sendRedirect("http://localhost:8080/Exams/admin/index.xhtml");
+        response.sendRedirect("http://localhost:8080/Exams/admin/adminExams.jsp");
 
     }
     

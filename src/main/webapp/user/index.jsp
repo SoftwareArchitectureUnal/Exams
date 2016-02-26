@@ -1,5 +1,5 @@
+<%@page import="com.unal.exams.Presentation.Servlet.ExamsServlet"%>
 <%@page import="java.util.Collection"%>
-<%@page import="com.unal.exams.BusinessLogic.Controller.User.ExamRegisterController"%>
 <%@page import="com.unal.exams.DataAccess.Entity.Exams"%>
 <%@page import="java.util.LinkedList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
         <h1>Examenes</h1>
         <table>
             <%
-                Collection<Exams> lista = ExamRegisterController.allExams();
+                Collection<Exams> lista = ExamsServlet.loadExams();
                 out.println("<tr>");
                     out.println("<td>ID             </td>");
                     out.println("<td>Nombre             </td>");

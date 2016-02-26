@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unal.exams.Presentation.Servlets;
+package com.unal.exams.Presentation.Servlet;
 
+import com.unal.exams.BusinessLogic.Controller.User.ExamController;
+import com.unal.exams.DataAccess.Entity.Exams;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author yeisondavid
+ * @author alej0
  */
-@WebServlet(name = "RegisterExamServlet", urlPatterns = {"/RegisterExamServlet"})
-public class RegisterExamServlet extends HttpServlet {
+@WebServlet(name = "ExamsServlet", urlPatterns = {"/ExamsServlet"})
+public class ExamsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +37,15 @@ public class RegisterExamServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ExamsServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ExamsServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

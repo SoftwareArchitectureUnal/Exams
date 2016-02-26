@@ -163,7 +163,7 @@ public class ExamBean {
         }
     }
     
-    public Collection<Exams> loadExam(){
+    public static Collection<Exams> loadExams(){
         try{
             return new ExamController().findAll();
         }catch(Exception e){
