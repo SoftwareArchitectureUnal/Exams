@@ -9,9 +9,9 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,16 +29,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Relation.findAll", query = "SELECT r FROM Relation r"),
     @NamedQuery(name = "Relation.findByRelationId", query = "SELECT r FROM Relation r WHERE r.relationId = :relationId"),
+    @NamedQuery(name = "Relation.findByIdUser", query = "SELECT r FROM Relation r WHERE r.idUser = :idUser"),
+    @NamedQuery(name = "Relation.findByIdExam", query = "SELECT r FROM Relation r WHERE r.idExam = :idExam"),
     @NamedQuery(name = "Relation.findByApproved", query = "SELECT r FROM Relation r WHERE r.approved = :approved"),
     @NamedQuery(name = "Relation.findByState", query = "SELECT r FROM Relation r WHERE r.state = :state")})
 public class Relation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "relationId")
     private Integer relationId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "idUser")
+    private String idUser;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idExam")
+    private int idExam;
     @Basic(optional = false)
     @NotNull
     @Column(name = "approved")
@@ -48,12 +59,6 @@ public class Relation implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "state")
     private String state;
-    @JoinColumn(name = "idUser", referencedColumnName = "userId")
-    @ManyToOne(optional = false)
-    private Users idUser;
-    @JoinColumn(name = "idExam", referencedColumnName = "examId")
-    @ManyToOne(optional = false)
-    private Exams idExam;
 
     public Relation() {
     }
@@ -62,8 +67,10 @@ public class Relation implements Serializable {
         this.relationId = relationId;
     }
 
-    public Relation(Integer relationId, int approved, String state) {
+    public Relation(Integer relationId, String idUser, int idExam, int approved, String state) {
         this.relationId = relationId;
+        this.idUser = idUser;
+        this.idExam = idExam;
         this.approved = approved;
         this.state = state;
     }
@@ -74,6 +81,22 @@ public class Relation implements Serializable {
 
     public void setRelationId(Integer relationId) {
         this.relationId = relationId;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public int getIdExam() {
+        return idExam;
+    }
+
+    public void setIdExam(int idExam) {
+        this.idExam = idExam;
     }
 
     public int getApproved() {
@@ -90,22 +113,6 @@ public class Relation implements Serializable {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public Users getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Users idUser) {
-        this.idUser = idUser;
-    }
-
-    public Exams getIdExam() {
-        return idExam;
-    }
-
-    public void setIdExam(Exams idExam) {
-        this.idExam = idExam;
     }
 
     @Override

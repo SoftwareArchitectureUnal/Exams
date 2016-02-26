@@ -6,24 +6,21 @@
 package com.unal.exams.DataAccess.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-//import java.sql.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,14 +35,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Exams.findByName", query = "SELECT e FROM Exams e WHERE e.name = :name"),
     @NamedQuery(name = "Exams.findByRealizationDate", query = "SELECT e FROM Exams e WHERE e.realizationDate = :realizationDate"),
     @NamedQuery(name = "Exams.findByExpeditionDate", query = "SELECT e FROM Exams e WHERE e.expeditionDate = :expeditionDate"),
-    @NamedQuery(name = "Exams.findByDescription", query = "SELECT e FROM Exams e WHERE e.description = :description"),
-    /*@NamedQuery(name = "Exams.deleteByExamId", query = "DELETE FROM Exams e WHERE e.examId = :examId")*/})
+    @NamedQuery(name = "Exams.findByCertificationDate", query = "SELECT e FROM Exams e WHERE e.certificationDate = :certificationDate"),
+    @NamedQuery(name = "Exams.findByDescription", query = "SELECT e FROM Exams e WHERE e.description = :description")})
 public class Exams implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "examId")
     private Integer examId;
     @Basic(optional = false)
@@ -58,14 +55,17 @@ public class Exams implements Serializable {
     @Column(name = "realizationDate")
     @Temporal(TemporalType.DATE)
     private Date realizationDate;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "expeditionDate")
     @Temporal(TemporalType.DATE)
     private Date expeditionDate;
+    @Column(name = "certificationDate")
+    @Temporal(TemporalType.DATE)
+    private Date certificationDate;
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idExam")
-    private Collection<Relation> relationCollection;
 
     public Exams() {
     }
@@ -74,10 +74,11 @@ public class Exams implements Serializable {
         this.examId = examId;
     }
 
-    public Exams(Integer examId, String name, Date realizationDate) {
+    public Exams(Integer examId, String name, Date realizationDate, Date expeditionDate) {
         this.examId = examId;
         this.name = name;
         this.realizationDate = realizationDate;
+        this.expeditionDate = expeditionDate;
     }
 
     public Integer getExamId() {
@@ -112,21 +113,20 @@ public class Exams implements Serializable {
         this.expeditionDate = expeditionDate;
     }
 
+    public Date getCertificationDate() {
+        return certificationDate;
+    }
+
+    public void setCertificationDate(Date certificationDate) {
+        this.certificationDate = certificationDate;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @XmlTransient
-    public Collection<Relation> getRelationCollection() {
-        return relationCollection;
-    }
-
-    public void setRelationCollection(Collection<Relation> relationCollection) {
-        this.relationCollection = relationCollection;
     }
 
     @Override

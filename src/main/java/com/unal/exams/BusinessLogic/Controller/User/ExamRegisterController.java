@@ -26,11 +26,11 @@ public class ExamRegisterController {
        public static void RegisterExam(Users iduser, String idExam)
        {
            //TODO estoy toca hacerlo bien, toca crear las tablas de nuevo.
-           Random rr = new Random();
-           Relation r = new Relation( new Integer(rr.nextInt()), 0, "sin presentar");
-           r.setIdUser(iduser);
-            // r.setIdUser(idUser);
-           RelationDAO myDAO = new RelationDAO();
-           myDAO.insert(r);
+//           Random rr = new Random();
+//           Relation r = new Relation( new Integer(rr.nextInt()), 0, "sin presentar");
+//           r.setIdUser(iduser);
+//            // r.setIdUser(idUser);
+//           RelationDAO myDAO = new RelationDAO();
+//           myDAO.insert(r);
        }
 }
