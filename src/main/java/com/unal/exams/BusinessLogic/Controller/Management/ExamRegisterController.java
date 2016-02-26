@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.unal.exams.BusinessLogic.Controller.User;
+package com.unal.exams.BusinessLogic.Controller.Management;
 import com.unal.exams.DataAccess.DAO.ExamsDAO;
 import com.unal.exams.DataAccess.DAO.RelationDAO;
 import com.unal.exams.DataAccess.Entity.Exams;

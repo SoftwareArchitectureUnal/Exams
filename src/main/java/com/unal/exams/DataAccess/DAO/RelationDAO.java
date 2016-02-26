@@ -2,6 +2,7 @@ package com.unal.exams.DataAccess.DAO;
 
 import com.unal.exams.DataAccess.Entity.Exams;
 import com.unal.exams.DataAccess.Entity.Relation;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -43,6 +44,20 @@ public class RelationDAO {
             return (int)(query.getResultList().get(0));
         }catch(Exception e){
             return -1;
+        }
+    }
+    public Collection<Relation>  findExamByIdUser(String idUser)
+    {
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try
+        {
+            query = em.createNamedQuery("Relation.findByIdUser").setParameter("idUser", idUser);
+            return query.getResultList();
+        }
+        catch(Exception e)
+        {
+            return null;
         }
     }
 }
