@@ -8,41 +8,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
     </head>
     <body>
-        <h1>Examenes</h1>
-        <table>
-            <%
-                Collection<Exams> lista = ExamRegisterController.allExams();
-                out.println("<tr>");
-                    out.println("<td>ID             </td>");
-                    out.println("<td>Nombre             </td>");
-                    out.println("<td>Descripción        </td>");
-                    out.println("<td>Fecha           </td>");
-                    out.println("</tr>");
-                for( Exams myExam : lista)
-                {
+        <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        <form action="./RegisterExamServlet" method="post">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Examenes</div>
+                <!-- Table -->
+                <table class="table">
+                    <%
+                    Collection<Exams> lista = ExamRegisterController.allExams();
                     out.println("<tr>");
-                    out.println("<td>"+myExam.getExamId()+"               "+"</td>");
-                    out.println("<td>"+myExam.getName()+"               "+"</td>");
-                    out.println("<td>"+myExam.getDescription()+"              "+"</td>");
-                    out.println("<td>"+myExam.getRealizationDate()+"             "+"</td>");
-                    out.println("<td>");
-                  
-                    
-                    
-                    out.println("</td");
-                    out.println("</tr>");
-                }
-            %>
-        </table>
-        
-        <h1>Incribir </h1>
-        <h2>(Ingresar ID)</h2>
-        <form action="./RegExamServlet" method="post" >
-                <input type="number" name = "idExam" >
-                <input type="submit" value="Incribirse"/>
-         </form>
-        
+                        out.println("<th>Nombre             </th>");
+                        out.println("<th>Descripción        </th>");
+                        out.println("<th>Fecha           </th>");
+                        out.println("<th>Inscrito           </th>");
+                        out.println("</tr>");
+                    for( Exams myExam : lista)
+                    {
+                        out.println("<tr>");
+                        out.println("<td>"+myExam.getName()+"               "+"</td>");
+                        out.println("<td>"+myExam.getDescription()+"              "+"</td>");
+                        out.println("<td>"+myExam.getRealizationDate()+"             "+"</td>");
+                        out.println("<td> <input type=\"checkbox\" name=\"checkb"+myExam.getExamId()+"\" >          </td>");;
+                        out.println("</tr>");
+                    }
+                    %>
+                </table>
+            </div>
+            <button type = "submit" class = "btn btn-success">Guardar</button>
+        </form>   
+        <%@include file="/WEB-INF/jspf/footer.jspf" %>
     </body>
 </html>

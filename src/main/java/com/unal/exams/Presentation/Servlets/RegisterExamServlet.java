@@ -5,8 +5,12 @@
  */
 package com.unal.exams.Presentation.Servlets;
 
+import com.unal.exams.BusinessLogic.Controller.User.ExamRegisterController;
+import com.unal.exams.DataAccess.Entity.Exams;
+import com.unal.exams.DataAccess.Entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +38,21 @@ public class RegisterExamServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            Users myUser = (Users)request.getSession().getAttribute("user");
+            String myIdUser = myUser.getUserId();
+            Iterator<Exams> iter = ExamRegisterController.allExams().iterator();
+            Exams auxExam;
+            String value;
+            while( iter.hasNext())
+            {
+                auxExam = iter.next();
+                value = request.getParameter("checkb"+auxExam.getExamId());
+                if ( value != null && value.equals("on"))
+                {
+                    ExamRegisterController.RegisterExam(myIdUser, auxExam.getExamId());
+                }
+            }
+            request.getRequestDispatcher("/user/index.jsp").forward(request, response);
             
         }
     }
