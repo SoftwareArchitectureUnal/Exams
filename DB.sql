@@ -16,7 +16,7 @@ CREATE TABLE `Exams` (
     `name` varchar(255) NOT NULL UNIQUE,
     `realizationDate` date NOT NULL,
     `expeditionDate` date NOT NULL,
-    `certificationDate` date NULL
+    `certificationDate` date NULL,
     `description` varchar(255) NULL,
     PRIMARY KEY(examId)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
