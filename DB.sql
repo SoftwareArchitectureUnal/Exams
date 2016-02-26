@@ -12,10 +12,11 @@ CREATE TABLE `Users` (
 
 DROP TABLE IF EXISTS `Exams`;
 CREATE TABLE `Exams` (
-    `examId` int NOT NULL,
+    `examId` int NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL UNIQUE,
     `realizationDate` date NOT NULL,
-    `expeditionDate` date NULL,
+    `expeditionDate` date NOT NULL,
+    `certificationDate` date NULL
     `description` varchar(255) NULL,
     PRIMARY KEY(examId)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -23,12 +24,10 @@ CREATE TABLE `Exams` (
 
 DROP TABLE IF EXISTS `Relation`;
 CREATE TABLE `Relation`(
-    `relationId` INT NOT NULL,
+    `relationId` INT NOT NULL AUTO_INCREMENT,
     `idUser` VARCHAR(255) NOT NULL,
     `idExam` INT NOT NULL,
     `approved` INT NOT NULL,
     `state` VARCHAR(255) NOT NULL,
-    FOREIGN KEY (`idUser`) REFERENCES Users(`userId`),
-    FOREIGN KEY (`idExam`) REFERENCES Exams(`examId`),
     PRIMARY KEY(relationId)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8;
