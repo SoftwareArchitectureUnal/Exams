@@ -23,14 +23,14 @@ public class ExamRegisterController {
            ExamsDAO myDao = new ExamsDAO();
            return myDao.findAllExams();
        }
-       public static void RegisterExam(Users iduser, String idExam)
+       public static void RegisterExam(String idUser, int idExam)
        {
-           //TODO estoy toca hacerlo bien, toca crear las tablas de nuevo.
-//           Random rr = new Random();
-//           Relation r = new Relation( new Integer(rr.nextInt()), 0, "sin presentar");
-//           r.setIdUser(iduser);
-//            // r.setIdUser(idUser);
-//           RelationDAO myDAO = new RelationDAO();
-//           myDAO.insert(r);
+           RelationDAO myRelationDAO = new RelationDAO();
+           Relation myRelation = new Relation();
+           myRelation.setApproved(0);
+           myRelation.setIdExam(idExam);
+           myRelation.setIdUser(idUser);
+           myRelation.setState("sin calificar");
+           myRelationDAO.insert(myRelation);
        }
 }
