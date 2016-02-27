@@ -66,6 +66,17 @@ public class ExamsDAO {
         }
     }
     
+    public Exams findExamsById( int id ) {
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try{
+            query = em.createNamedQuery("Exams.findByExamId").setParameter("examId", id);
+            return (Exams) query.getResultList();
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
     public boolean deleteByExamId(Exams exam) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

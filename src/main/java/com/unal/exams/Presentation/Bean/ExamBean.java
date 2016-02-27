@@ -39,6 +39,9 @@ public class ExamBean {
     
     private Exams exam;
     
+    public ExamBean(){
+    }
+    
     public HtmlInputText getInputExamName() {
         return inputExamName;
     }
@@ -166,6 +169,16 @@ public class ExamBean {
     public static Collection<Exams> loadExams(){
         try{
             return new ExamController().findAll();
+        }catch(Exception e){
+            System.out.println( "error al cargar ");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static Exams loadExamById(int id){
+        try{
+            return new ExamController().findByExamId(id);
         }catch(Exception e){
             System.out.println( "error al cargar ");
             e.printStackTrace();

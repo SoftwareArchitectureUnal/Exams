@@ -33,11 +33,13 @@ public class UsersDAO {
     public Users searchUserByUsername(String username){
         EntityManager em = emf.createEntityManager();
         Users users = null;
-        try{   
+        try{ 
+            
             users = em.find(Users.class, username);
         }catch(Exception e){}
         finally{
             return users;
         }
     }
+    
 }

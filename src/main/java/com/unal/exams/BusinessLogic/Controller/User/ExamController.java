@@ -53,4 +53,9 @@ public class ExamController {
         return examsDAO.findAllExams();
     }
     
+    public static Exams findByExamId( int id ){
+        ExamsDAO examsDAO = new ExamsDAO();
+        return examsDAO.findExamsById(id);
+    }
+    
 }

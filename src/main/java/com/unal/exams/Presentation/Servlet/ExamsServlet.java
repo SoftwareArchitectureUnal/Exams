@@ -7,6 +7,7 @@ package com.unal.exams.Presentation.Servlet;
 
 import com.unal.exams.BusinessLogic.Controller.User.ExamController;
 import com.unal.exams.DataAccess.Entity.Exams;
+import com.unal.exams.Presentation.Bean.ExamBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -47,6 +48,16 @@ public class ExamsServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
+    }
+    
+    public boolean deleteExamById(int id){
+        try{
+            ExamBean examBean = new ExamBean();
+            examBean.deleteExam( examBean.loadExamById(id) );
+        }catch(Exception e){
+            return false;
+        }
+        return true;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

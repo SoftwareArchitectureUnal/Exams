@@ -20,6 +20,7 @@
         <h1>Exámenes</h1>
         <table id="table-exams" class="display" cellspacing="0" width="100%">
             <%
+                ExamBean examBean = new ExamBean();
                 Collection<Exams> exams = ExamBean.loadExams();
                 out.println("<thead>");
                 out.println("<tr>");
@@ -52,8 +53,8 @@
                         out.println("<td>"+exam.getDescription()+"</td>");
                         out.println("<td>"+exam.getExpeditionDate()+"</td>");
                         out.println("<td>"+exam.getRealizationDate()+"</td>");
-                        out.println("<td></td>");
-                        out.println("<td></td>");
+                        out.println("<td><button type='button' id='"+exam.getExamId()+"' class='btn-update btn btn-default'>Actualizar</button></td>");
+                        out.println("<td><button type='button' id='"+exam.getExamId()+"' class='btn-delete btn btn-default'>Actualizar</button></td>");
                     out.println("</tr>");
                 }
                 out.println("</tbody>");
@@ -64,6 +65,24 @@
         <script src="../resources/dataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script>
             $(document).ready(function() {
+                $('.btn-update').click(function(){
+                    alert( $(this).attr("id") )
+                });
+                $('.btn-delete').click(function(){
+                    /*$.ajax({
+                        type: "post",
+                        url: "/ExamsServlet",
+                        data: {
+                            id: $(this).attr("id")
+                        },
+                        success: function(msg){      
+                            alert("hola")
+                        },
+                        error: function(msg,a,b){
+                            alert("error " + b);
+                        }
+                    });*/
+                });
                 $('#table-exams').dataTable({
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ resultados por página",
