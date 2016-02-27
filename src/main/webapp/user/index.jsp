@@ -1,4 +1,5 @@
 
+<%@page import="javafx.util.Pair"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.unal.exams.BusinessLogic.Controller.Reports.CertificationController"%>
 <%@page import="com.unal.exams.DataAccess.Entity.Exams"%>
@@ -26,20 +27,31 @@
                 <!-- Table -->
                 <table class="table">
                     <%
-                    Collection<Exams> lista = ExamRegisterController.allExams();
+                    Collection<Pair<Exams, Boolean>> lista = ExamRegisterController.ExamsUser(((Users)session.getAttribute("user")).getUserId());
+                    Boolean flag;
+                    Exams exam;
                     out.println("<tr>");
                         out.println("<th>Nombre             </th>");
                         out.println("<th>Descripción        </th>");
                         out.println("<th>Fecha           </th>");
-                        out.println("<th>Inscrito           </th>");
+                        out.println("<th>Inscribir           </th>");
                         out.println("</tr>");
-                    for( Exams myExam : lista)
+                    for( Pair myPair : lista)
                     {
+                        exam = (Exams)myPair.getKey();
+                        flag = (Boolean)myPair.getValue();
                         out.println("<tr>");
-                        out.println("<td>"+myExam.getName()+"               "+"</td>");
-                        out.println("<td>"+myExam.getDescription()+"              "+"</td>");
-                        out.println("<td>"+myExam.getRealizationDate()+"             "+"</td>");
-                        out.println("<td> <input type=\"checkbox\" name=\"checkb"+myExam.getExamId()+"\" >          </td>");;
+                        out.println("<td>"+exam.getName()+"               "+"</td>");
+                        out.println("<td>"+exam.getDescription()+"              "+"</td>");
+                        out.println("<td>"+exam.getRealizationDate()+"             "+"</td>");
+                        if ( flag )
+                        {
+                            out.println("<td> <input type=\"checkbox\" name=\"checkb"+exam.getExamId()+"  ckecked  \" >          </td>"); 
+                        }
+                        else
+                        {
+                            out.println("<td> <input type=\"checkbox\" name=\"checkb"+exam.getExamId()+"\" >          </td>");
+                        }
                         out.println("</tr>");
                     }
                     %>
@@ -48,7 +60,7 @@
             <button type = "submit" class = "btn btn-success">Guardar</button>
         </form>   
                 
-                
+                <br><br><br>   
         <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading">Certificados</div>

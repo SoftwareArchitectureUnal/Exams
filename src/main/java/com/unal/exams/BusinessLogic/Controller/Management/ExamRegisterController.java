@@ -8,20 +8,50 @@ import com.unal.exams.DataAccess.DAO.ExamsDAO;
 import com.unal.exams.DataAccess.DAO.RelationDAO;
 import com.unal.exams.DataAccess.Entity.Exams;
 import com.unal.exams.DataAccess.Entity.Relation;
-import com.unal.exams.DataAccess.Entity.Users;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
+import java.util.Iterator;
+import java.util.TreeSet;
+import javafx.util.Pair;
+
 
 /**
  *
  * @author yeisondavid
  */
 public class ExamRegisterController {
-       public static int count = 0;
-       public static Collection<Exams> allExams()
+        public static Collection<Exams> allExams()
        {
            ExamsDAO myDao = new ExamsDAO();
            return myDao.findAllExams();
+       }
+       public static Collection<Pair<Exams, Boolean>> ExamsUser(String idUser)
+       {
+           ExamsDAO myDao = new ExamsDAO();
+           RelationDAO myRelationDAO = new RelationDAO();
+           Collection<Exams> myCollectionExams = myDao.findAllExams();
+           Collection<Relation> myCollectionRelation = myRelationDAO.findExamByIdUser(idUser);
+           TreeSet<Integer> mySet = new TreeSet<Integer>();
+           for( Relation myRelation : myCollectionRelation )
+           {
+               mySet.add(myRelation.getIdExam());
+           }
+           Iterator iter = myCollectionExams.iterator();
+           Exams myExam;
+           Collection result = new ArrayList<Pair<Exams, Boolean>>();
+           while( iter.hasNext())
+           {
+               myExam = (Exams)iter.next();
+               if ( mySet.contains(myExam.getExamId()))
+               {
+                   result.add( new Pair(myExam, true));
+               }
+               else
+               {
+                   result.add( new Pair(myExam, false));
+               }
+           }
+           return result;
        }
        public static void RegisterExam(String idUser, int idExam)
        {
