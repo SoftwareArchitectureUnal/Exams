@@ -52,5 +52,9 @@ public class ExamController {
         ExamsDAO examsDAO = new ExamsDAO();
         return examsDAO.findAllExams();
     }
+    public Collection<Exams> findExmasUser(String username){
+        ExamsDAO examsDAO = new ExamsDAO();
+        return examsDAO.findExamsUser(username);
+    }
     
 }

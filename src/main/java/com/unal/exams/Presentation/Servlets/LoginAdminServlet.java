@@ -27,6 +27,7 @@ public class LoginAdminServlet extends HttpServlet {
             req.getRequestDispatcher("/loginError.jsp").forward(req, resp);
             return;
         }
+        req.getSession().setAttribute("admin", "admin");
         req.getRequestDispatcher("admin/index.xhtml").forward(req, resp);
         
     }

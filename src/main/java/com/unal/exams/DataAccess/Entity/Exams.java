@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author yeisondavid
+ * @author AndresGutierrez
  */
 @Entity
-@Table(name = "exams")
+@Table(name = "Exams")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Exams.findAll", query = "SELECT e FROM Exams e"),

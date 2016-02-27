@@ -2,6 +2,7 @@ package com.unal.exams.DataAccess.DAO;
 
 import com.unal.exams.DataAccess.Entity.Exams;
 import com.unal.exams.DataAccess.Entity.Relation;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,7 +36,7 @@ public class RelationDAO {
         }
         return relation;
     }
-     public int sizeRelationTable() {
+    public int sizeRelationTable() {
         EntityManager em = emf.createEntityManager();
         Query query;
         try{

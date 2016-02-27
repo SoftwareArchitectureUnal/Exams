@@ -14,6 +14,17 @@
     </head>
     <body>
         <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        <c:if test="${totalNotifications>0}">
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>There are some exams just around the corner!</strong> 
+            </div>
+        </c:if>
+        <c:if test="${admin!=null}">
+            <%
+                request.getRequestDispatcher("/admin/index.xhtml").forward(request, response);
+            %>
+        </c:if>
         <form action="./RegisterExamServlet" method="post">
             <div class="panel panel-default">
                 <!-- Default panel contents -->

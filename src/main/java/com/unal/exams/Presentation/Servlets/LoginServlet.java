@@ -5,9 +5,12 @@
  */
 package com.unal.exams.Presentation.Servlets;
 
+import com.unal.exams.BusinessLogic.Controller.User.ExamController;
 import com.unal.exams.BusinessLogic.Controller.User.UserController;
+import com.unal.exams.DataAccess.Entity.Exams;
 import com.unal.exams.DataAccess.Entity.Users;
 import java.io.IOException;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +23,16 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
     
     public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        ExamController examController = new ExamController();
         String username = req.getParameter("inputUsername");
+        Collection<Exams> exmas = examController.findExmasUser(username);
         String password = req.getParameter("inputPassword");
         UserController userController = new UserController();
         Users user = userController.login(username, password);
         if(user!=null){//The login was successful
             req.getSession().setAttribute("user", user);
+            req.getSession().setAttribute("totalNotifications",exmas.size());
+            req.getSession().setAttribute("notifications",exmas);
             req.getRequestDispatcher("/user/index.jsp").forward(req, resp);
         }else{
             req.getSession().setAttribute("login", "error");

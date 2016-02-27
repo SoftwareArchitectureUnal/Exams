@@ -4,6 +4,7 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
     <session-config>
         <session-timeout>
             30
@@ -40,6 +41,14 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.LogoutAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutAdminServlet</servlet-name>
+        <url-pattern>/LogoutAdminServlet</url-pattern>
     </servlet-mapping>
     <login-config>
         <auth-method>

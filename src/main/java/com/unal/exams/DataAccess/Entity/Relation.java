@@ -21,15 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author yeisondavid
+ * @author AndresGutierrez
  */
-
-//@NamedQuery(name = "Relation.findSize", query = "SELECT COUNT(*) FROM Relation"),
-
-
-
 @Entity
-@Table(name = "relation")
+@Table(name = "Relation")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Relation.findAll", query = "SELECT r FROM Relation r"),
@@ -37,9 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Relation.findByIdUser", query = "SELECT r FROM Relation r WHERE r.idUser = :idUser"),
     @NamedQuery(name = "Relation.findByIdExam", query = "SELECT r FROM Relation r WHERE r.idExam = :idExam"),
     @NamedQuery(name = "Relation.findByApproved", query = "SELECT r FROM Relation r WHERE r.approved = :approved"),
-    
     @NamedQuery(name = "Relation.findByState", query = "SELECT r FROM Relation r WHERE r.state = :state")})
-    
 public class Relation implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -25,6 +25,18 @@
                 <strong>Error!</strong> No se pudo hacer el registro
             </div>
         </c:if>
+        <c:choose>
+            <c:when test="${user!=null}">
+                <%
+                    request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+                %>
+            </c:when>
+            <c:when test="${admin!=null}">
+                <%
+                    request.getRequestDispatcher("/admin/index.xhtml").forward(request, response);
+                %>
+            </c:when>
+        </c:choose>
         <div class="container">
             <form  action="${pageContext.request.contextPath}/SignUpServlet" id="myForm" data-toggle="validator" class="form-signin" method="post">
                 <h2 class="form-signin-heading">Por favor llene el formulario</h2>

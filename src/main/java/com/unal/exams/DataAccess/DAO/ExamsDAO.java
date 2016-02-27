@@ -1,7 +1,9 @@
 package com.unal.exams.DataAccess.DAO;
 
 import com.unal.exams.DataAccess.Entity.Exams;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -63,6 +65,18 @@ public class ExamsDAO {
             return (Collection<Exams>) query.getResultList();
         }catch(Exception e){
             return null;
+        }
+    }
+    public Collection<Exams> findExamsUser(String username){
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try{
+                query = em.createNativeQuery("SELECT * FROM Relation AS r INNER JOIN Exams AS e ON r.idExam=e.examId WHERE (r.idUser=? && (e.realizationDate>=DATE_SUB(CURDATE(),INTERVAL 2 DAY) && e.realizationDate<=CURDATE()));",Exams.class);
+            query.setParameter(1,username);
+            return query.getResultList();
+        }catch(Exception e){
+            System.out.println(e.toString());
+            return new ArrayList<Exams>();
         }
     }
     

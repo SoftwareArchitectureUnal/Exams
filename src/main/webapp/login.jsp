@@ -17,7 +17,20 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
     </head>
     <body>
+        
         <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        <c:choose>
+            <c:when test="${user!=null}">
+                <%
+                    request.getRequestDispatcher("/user/index.jsp").forward(request, response);
+                %>
+            </c:when>
+            <c:when test="${admin!=null}">
+                <%
+                    request.getRequestDispatcher("/admin/index.xhtml").forward(request, response);
+                %>
+            </c:when>
+        </c:choose>
         <c:if test="${login!=null}" >
             <div class="alert alert-danger">
                 <strong>Error!</strong> No se pudo hacer el login
