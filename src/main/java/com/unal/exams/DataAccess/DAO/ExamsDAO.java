@@ -94,5 +94,18 @@ public class ExamsDAO {
         }
         return true;
     }
+    
+    public Exams getExam( int idExam)
+    {
+         EntityManager em = emf.createEntityManager();
+        Query query;
+        try{
+            query = em.createNamedQuery("Exams.findAll");
+            return (Exams)query.getResultList().get(0);
+        }catch(Exception e){
+            return null;
+        }
+        
+    }
 
 }
