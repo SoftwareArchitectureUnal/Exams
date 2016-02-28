@@ -30,7 +30,7 @@ public class ExamRegisterController {
            ExamsDAO myDao = new ExamsDAO();
            RelationDAO myRelationDAO = new RelationDAO();
            Collection<Exams> myCollectionExams = myDao.findAllExams();
-           Collection<Relation> myCollectionRelation = myRelationDAO.findExamByIdUser(idUser);
+           Collection<Relation> myCollectionRelation = myRelationDAO.findRelationByIdUser(idUser);
            TreeSet<Integer> mySet = new TreeSet<Integer>();
            for( Relation myRelation : myCollectionRelation )
            {
@@ -62,5 +62,18 @@ public class ExamRegisterController {
            myRelation.setIdUser(idUser);
            myRelation.setState("sin calificar");
            myRelationDAO.insert(myRelation);
+       }
+       public static void unSubcribeExam(String idUser, int idExam)
+       {
+           RelationDAO myRelationDAO = new RelationDAO();
+           Collection<Relation> collection = myRelationDAO.findRelationByIdUser(idUser);
+           for( Relation myRelation : collection)
+           {
+               if ( myRelation.getIdExam() == idExam)
+               {
+                    myRelationDAO.deleteByRelationId(myRelation);
+                    break;
+               }
+           }
        }
 }

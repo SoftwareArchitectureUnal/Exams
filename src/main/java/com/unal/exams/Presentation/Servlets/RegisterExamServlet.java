@@ -10,7 +10,9 @@ import com.unal.exams.DataAccess.Entity.Exams;
 import com.unal.exams.DataAccess.Entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.Iterator;
+import javafx.util.Pair;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,17 +42,28 @@ public class RegisterExamServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             Users myUser = (Users)request.getSession().getAttribute("user");
             String myIdUser = myUser.getUserId();
-            Iterator<Exams> iter = ExamRegisterController.allExams().iterator();
             Exams auxExam;
             String value;
+            Boolean flag;
+            Pair auxP;
+            Collection<Pair<Exams, Boolean>> lista = ExamRegisterController.ExamsUser(myIdUser);
+            Iterator<Pair<Exams,Boolean>> iter = lista.iterator();
             while( iter.hasNext())
             {
-                auxExam = iter.next();
+                auxP = iter.next();
+                flag = (Boolean)auxP.getValue();
+                auxExam = (Exams)auxP.getKey();
                 value = request.getParameter("checkb"+auxExam.getExamId());
-                if ( value != null && value.equals("on"))
+                if ( value == null && flag)
+                {
+                    System.out.println("unSubcribeExam");
+                    ExamRegisterController.unSubcribeExam(myIdUser, auxExam.getExamId());
+                }    
+                else if ( value != null && !flag)
                 {
                     ExamRegisterController.RegisterExam(myIdUser, auxExam.getExamId());
                 }
+                   
             }
             request.getRequestDispatcher("/user/index.jsp").forward(request, response);
             

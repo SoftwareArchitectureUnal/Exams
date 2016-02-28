@@ -22,7 +22,7 @@ public class CertificationController {
     public static Collection<Exams> getPasExamsofUser(String idUser)
     {
         RelationDAO myRelationDAO = new RelationDAO();
-        Collection<Relation> query = myRelationDAO.findExamByIdUser(idUser);
+        Collection<Relation> query = myRelationDAO.findRelationByIdUser(idUser);
         Iterator iter = query.iterator();
         Relation auxRelation;
         int idExam;

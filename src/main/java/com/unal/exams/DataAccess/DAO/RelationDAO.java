@@ -46,7 +46,7 @@ public class RelationDAO {
             return -1;
         }
     }
-    public Collection<Relation>  findExamByIdUser(String idUser)
+    public Collection<Relation>  findRelationByIdUser(String idUser)
     {
         EntityManager em = emf.createEntityManager();
         Query query;
@@ -59,5 +59,23 @@ public class RelationDAO {
         {
             return null;
         }
+    }
+    
+    
+     public boolean deleteByRelationId(Relation relation) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try{
+            relation = em.merge(relation);
+            em.remove(relation);
+            em.getTransaction().commit();
+            System.out.println("good");
+        }catch(Exception e){
+            em.getTransaction().rollback();
+            System.out.println("bad");
+        }finally{
+            em.close();
+        }
+        return true;
     }
 }

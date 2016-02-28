@@ -1,4 +1,6 @@
 
+
+<%@page import="java.util.Date"%>
 <%@page import="javafx.util.Pair"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.unal.exams.BusinessLogic.Controller.Reports.CertificationController"%>
@@ -36,17 +38,22 @@
                         out.println("<th>Fecha           </th>");
                         out.println("<th>Inscribir           </th>");
                         out.println("</tr>");
+                    Date auxDate;
                     for( Pair myPair : lista)
                     {
+                        
                         exam = (Exams)myPair.getKey();
+                        auxDate = exam.getRealizationDate();
+                        if ( auxDate.compareTo(new Date()) == -1) continue;
                         flag = (Boolean)myPair.getValue();
+                        System.out.println("::: "+exam.getExamId()+" , "+flag);
                         out.println("<tr>");
                         out.println("<td>"+exam.getName()+"               "+"</td>");
                         out.println("<td>"+exam.getDescription()+"              "+"</td>");
                         out.println("<td>"+exam.getRealizationDate()+"             "+"</td>");
                         if ( flag )
                         {
-                            out.println("<td> <input type=\"checkbox\" name=\"checkb"+exam.getExamId()+"  ckecked  \" >          </td>"); 
+                            out.println("<td> <input type=\"checkbox\" name=\"checkb"+exam.getExamId()+"\"  checked>          </td>"); 
                         }
                         else
                         {
@@ -57,7 +64,7 @@
                     %>
                 </table>
             </div>
-            <button type = "submit" class = "btn btn-success">Guardar</button>
+            <button type = "submit" class = "btn btn-success" name = "btsave">Guardar</button>
         </form>   
                 
                 <br><br><br>   
