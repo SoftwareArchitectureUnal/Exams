@@ -46,6 +46,7 @@ public class ExamsDAO {
             exUpdate.setName(exam.getName());
             exUpdate.setExpeditionDate(exam.getExpeditionDate());
             exUpdate.setRealizationDate(exam.getRealizationDate());
+            exUpdate.setCertificationDate(exam.getCertificationDate());
             exUpdate.setDescription(exam.getDescription());
             em.getTransaction().commit();
         }catch(Exception e){
@@ -67,11 +68,24 @@ public class ExamsDAO {
             return null;
         }
     }
+    
+    public Exams findById( int id ) {
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try{
+            query = em.createNamedQuery("Exams.findByExamId").setParameter("examId", id);
+            return (Exams)query.getSingleResult();
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public Collection<Exams> findExamsUser(String username){
         EntityManager em = emf.createEntityManager();
         Query query;
         try{
-                query = em.createNativeQuery("SELECT * FROM Relation AS r INNER JOIN Exams AS e ON r.idExam=e.examId WHERE (r.idUser=? && (e.realizationDate>=DATE_SUB(CURDATE(),INTERVAL 2 DAY) && e.realizationDate<=CURDATE()));",Exams.class);
+            query = em.createNativeQuery("SELECT * FROM Relation AS r INNER JOIN Exams AS e ON r.idExam=e.examId WHERE (r.idUser=? && (e.realizationDate>=DATE_SUB(CURDATE(),INTERVAL 2 DAY) && e.realizationDate<=CURDATE()));",Exams.class);
             query.setParameter(1,username);
             return query.getResultList();
         }catch(Exception e){
@@ -80,7 +94,7 @@ public class ExamsDAO {
         }
     }
     
-    public boolean deleteByExamId(Exams exam) {
+    public boolean deleteExam(Exams exam) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try{
@@ -95,9 +109,9 @@ public class ExamsDAO {
         return true;
     }
     
-    public Exams getExam( int idExam)
+    public Exams getExam(int idExam)
     {
-         EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         Query query;
         try{
             query = em.createNamedQuery("Exams.findAll");

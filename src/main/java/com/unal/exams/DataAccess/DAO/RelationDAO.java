@@ -79,4 +79,15 @@ public class RelationDAO {
         }
         return true;
     }
+    
+    public Collection<Relation> findAllRelation(){
+        EntityManager em = emf.createEntityManager();
+        Query query;
+        try{
+            query = em.createNamedQuery("Relation.findAll");
+            return (Collection<Relation>) query.getResultList();
+        }catch(Exception e){
+            return null;
+        }
+    }
 }

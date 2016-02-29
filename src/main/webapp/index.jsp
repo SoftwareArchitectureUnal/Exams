@@ -16,7 +16,7 @@
     </head>
     <body>
         
-        <%@include file="/WEB-INF/jspf/menu.jspf" %>
+        <%@include file="/WEB-INF/jspf/menu.jspf"%>
         <c:choose>
             <c:when test="${user!=null}">
                 <%
@@ -25,7 +25,7 @@
             </c:when>
             <c:when test="${admin!=null}">
                 <%
-                    request.getRequestDispatcher("/admin/index.xhtml").forward(request, response);
+                    request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
                 %>
             </c:when>
         </c:choose>

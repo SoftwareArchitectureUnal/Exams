@@ -156,7 +156,7 @@ public class ExamBean {
             
             String realDateAsString = realizationDate;
             Date realDate = sourceFormat.parse(realDateAsString);
-            Exams exam = new ExamController().insert(examId, examName, expDate, realDate, description);
+            //Exams exam = new ExamController().insert(examId, examName, expDate, realDate, description);
         }catch(Exception e){
             System.out.println( "error al guardar ");
             e.printStackTrace();
@@ -175,7 +175,7 @@ public class ExamBean {
     
     public void deleteExam(Exams exam){
         try{
-            new ExamController().deleteByExamId(exam);
+            new ExamController().deleteExam(exam);
         }catch(Exception e){
             System.out.println( "error al borrar " + exam);
             e.printStackTrace();
@@ -190,7 +190,7 @@ public class ExamBean {
             
             String realDateAsString = realizationDate;
             Date realDate = sourceFormat.parse(realDateAsString);
-            Exams exam = new ExamController().update(examId, examName, expDate, realDate, description);
+           // Exams exam = new ExamController().update(examId, examName, expDate, realDate, description);
         }catch(Exception e){
             System.out.println( "error al actualizar ");
             e.printStackTrace();

@@ -7,10 +7,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dropdown.js"></script>
-
 </head>
 <div class="navbar-wrapper">
-      <div class="container">
+      <div class="container-fluid">
 
         <nav class="navbar navbar-inverse navbar-static-top">
           <div class="container">
@@ -23,7 +22,6 @@
               </button>
                 <a class="navbar-brand" href="#">
                     Exams
-                    
                 </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -40,7 +38,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/Exams/login.jsp">User</a></li>
-                                <li><a href="/Exams/admin/index.xhtml">Admin</a></li>
+                                <li><a href="/Exams/admin/index.jsp">Admin</a></li>
                             </ul>
                         </li>
                     </c:when > 
@@ -53,7 +51,6 @@
                                 </c:forEach>
                             </ul>
                         </li>
-                        
                         <li><a href="${pageContext.request.contextPath}/LogoutServlet">Log out</a></li>
                     </c:when>
                     <c:when test="${admin!=null}">

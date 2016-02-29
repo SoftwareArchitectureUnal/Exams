@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         ExamController examController = new ExamController();
         String username = req.getParameter("inputUsername");
-        Collection<Exams> exmas = examController.findExmasUser(username);
+        Collection<Exams> exmas = examController.findExamsUser(username);
         String password = req.getParameter("inputPassword");
         UserController userController = new UserController();
         Users user = userController.login(username, password);

@@ -30,7 +30,7 @@
         </c:if>
         <c:if test="${admin!=null}">
             <%
-                request.getRequestDispatcher("/admin/index.xhtml").forward(request, response);
+                request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
             %>
         </c:if>
         <form action="./RegisterExamServlet" method="post">

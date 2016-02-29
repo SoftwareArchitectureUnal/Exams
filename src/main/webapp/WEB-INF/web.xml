@@ -11,6 +11,14 @@
         </session-timeout>
     </session-config>
     <servlet>
+        <servlet-name>AdminExamsServlet</servlet-name>
+        <servlet-class>com.unal.exams.Presentation.Servlets.AdminExamsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminExamsServlet</servlet-name>
+        <url-pattern>/AdminExamsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>SignUpServlet</servlet-name>
         <servlet-class>com.unal.exams.Presentation.Servlets.SignUpServlet</servlet-class>
     </servlet>
